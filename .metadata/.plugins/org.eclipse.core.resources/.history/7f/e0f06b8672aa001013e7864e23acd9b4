@@ -1,0 +1,19 @@
+<%@include file="/init.jsp"%>
+
+<%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
+<%@ page import="com.liferay.docs.guestbook.model.Guestbook" %>
+<%@ page import="com.liferay.docs.guestbook.service.GuestbookLocalServiceUtil" %>
+
+<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
+
+<%
+	long guestbookId=ParamUtil.getLong(request,"guestbookId");
+	Guestbook guestbook=null;
+	if(guestbookId>0){
+		guestbook=GuestbookLocalServiceUtil.getGuestbook(guestbookId);
+	}
+%>
+<portlet:renderURL var="viewURL">
+	<portlet:param name="mvcPath" value="/guestbook_admin/view.jsp"/>
+</portlet:renderURL>

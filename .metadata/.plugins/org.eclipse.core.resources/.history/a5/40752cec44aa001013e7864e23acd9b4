@@ -1,0 +1,278 @@
+package com.liferay.docs.guestbook.service;
+
+import com.liferay.portal.kernel.service.ServiceWrapper;
+
+public class GuestbookEntryLocalServiceWrapper
+	implements GuestbookEntryLocalService,
+			   ServiceWrapper<GuestbookEntryLocalService> {
+
+	public GuestbookEntryLocalServiceWrapper() {
+		this(null);
+	}
+
+	public GuestbookEntryLocalServiceWrapper(
+		GuestbookEntryLocalService guestbookEntryLocalService) {
+
+		_guestbookEntryLocalService = guestbookEntryLocalService;
+	}
+
+	@Override
+	public com.liferay.docs.guestbook.model.GuestbookEntry addEntry(
+			long userId, long guestbookId, String name, String email,
+			String message,
+			com.liferay.portal.kernel.service.ServiceContext service)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _guestbookEntryLocalService.addEntry(
+			userId, guestbookId, name, email, message, service);
+	}
+	
+	@Override
+	public com.liferay.docs.guestbook.model.GuestbookEntry addGuestbookEntry(
+		com.liferay.docs.guestbook.model.GuestbookEntry guestbookEntry) {
+
+		return _guestbookEntryLocalService.addGuestbookEntry(guestbookEntry);
+	}
+
+	@Override
+	public com.liferay.docs.guestbook.model.GuestbookEntry createGuestbookEntry(
+		long entryId) {
+
+		return _guestbookEntryLocalService.createGuestbookEntry(entryId);
+	}
+
+	/**
+	 * @throws PortalException
+	 */
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel createPersistedModel(
+			java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _guestbookEntryLocalService.createPersistedModel(primaryKeyObj);
+	}
+
+	@Override
+	public com.liferay.docs.guestbook.model.GuestbookEntry deleteGuestbookEntry(
+		com.liferay.docs.guestbook.model.GuestbookEntry guestbookEntry) {
+
+		return _guestbookEntryLocalService.deleteGuestbookEntry(guestbookEntry);
+	}
+
+	@Override
+	public com.liferay.docs.guestbook.model.GuestbookEntry deleteGuestbookEntry(
+			long entryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _guestbookEntryLocalService.deleteGuestbookEntry(entryId);
+	}
+
+	/**
+	 * @throws PortalException
+	 */
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel deletePersistedModel(
+			com.liferay.portal.kernel.model.PersistedModel persistedModel)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _guestbookEntryLocalService.deletePersistedModel(persistedModel);
+	}
+
+	@Override
+	public <T> T dslQuery(com.liferay.petra.sql.dsl.query.DSLQuery dslQuery) {
+		return _guestbookEntryLocalService.dslQuery(dslQuery);
+	}
+
+	@Override
+	public int dslQueryCount(
+		com.liferay.petra.sql.dsl.query.DSLQuery dslQuery) {
+
+		return _guestbookEntryLocalService.dslQueryCount(dslQuery);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery() {
+		return _guestbookEntryLocalService.dynamicQuery();
+	}
+
+	@Override
+	public <T> java.util.List<T> dynamicQuery(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+
+		return _guestbookEntryLocalService.dynamicQuery(dynamicQuery);
+	}
+
+	@Override
+	public <T> java.util.List<T> dynamicQuery(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
+		int end) {
+
+		return _guestbookEntryLocalService.dynamicQuery(
+			dynamicQuery, start, end);
+	}
+
+	@Override
+	public <T> java.util.List<T> dynamicQuery(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery, int start,
+		int end,
+		com.liferay.portal.kernel.util.OrderByComparator<T> orderByComparator) {
+
+		return _guestbookEntryLocalService.dynamicQuery(
+			dynamicQuery, start, end, orderByComparator);
+	}
+
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery) {
+
+		return _guestbookEntryLocalService.dynamicQueryCount(dynamicQuery);
+	}
+
+	@Override
+	public long dynamicQueryCount(
+		com.liferay.portal.kernel.dao.orm.DynamicQuery dynamicQuery,
+		com.liferay.portal.kernel.dao.orm.Projection projection) {
+
+		return _guestbookEntryLocalService.dynamicQueryCount(
+			dynamicQuery, projection);
+	}
+
+	@Override
+	public com.liferay.docs.guestbook.model.GuestbookEntry fetchGuestbookEntry(
+		long entryId) {
+
+		return _guestbookEntryLocalService.fetchGuestbookEntry(entryId);
+	}
+
+	
+	@Override
+	public com.liferay.docs.guestbook.model.GuestbookEntry
+		fetchGuestbookEntryByUuidAndGroupId(String uuid, long groupId) {
+
+		return _guestbookEntryLocalService.fetchGuestbookEntryByUuidAndGroupId(
+			uuid, groupId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ActionableDynamicQuery
+		getActionableDynamicQuery() {
+
+		return _guestbookEntryLocalService.getActionableDynamicQuery();
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.ExportActionableDynamicQuery
+		getExportActionableDynamicQuery(
+			com.liferay.exportimport.kernel.lar.PortletDataContext
+				portletDataContext) {
+
+		return _guestbookEntryLocalService.getExportActionableDynamicQuery(
+			portletDataContext);
+	}
+
+	@Override
+	public java.util.List<com.liferay.docs.guestbook.model.GuestbookEntry>
+		getGuestbookEntries(int start, int end) {
+
+		return _guestbookEntryLocalService.getGuestbookEntries(start, end);
+	}
+
+	@Override
+	public java.util.List<com.liferay.docs.guestbook.model.GuestbookEntry>
+		getGuestbookEntriesByUuidAndCompanyId(String uuid, long companyId) {
+
+		return _guestbookEntryLocalService.
+			getGuestbookEntriesByUuidAndCompanyId(uuid, companyId);
+	}
+
+
+	@Override
+	public java.util.List<com.liferay.docs.guestbook.model.GuestbookEntry>
+		getGuestbookEntriesByUuidAndCompanyId(
+			String uuid, long companyId, int start, int end,
+			com.liferay.portal.kernel.util.OrderByComparator
+				<com.liferay.docs.guestbook.model.GuestbookEntry>
+					orderByComparator) {
+
+		return _guestbookEntryLocalService.
+			getGuestbookEntriesByUuidAndCompanyId(
+				uuid, companyId, start, end, orderByComparator);
+	}
+
+	@Override
+	public int getGuestbookEntriesCount() {
+		return _guestbookEntryLocalService.getGuestbookEntriesCount();
+	}
+
+
+	@Override
+	public com.liferay.docs.guestbook.model.GuestbookEntry getGuestbookEntry(
+			long entryId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _guestbookEntryLocalService.getGuestbookEntry(entryId);
+	}
+
+	
+	@Override
+	public com.liferay.docs.guestbook.model.GuestbookEntry
+			getGuestbookEntryByUuidAndGroupId(String uuid, long groupId)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _guestbookEntryLocalService.getGuestbookEntryByUuidAndGroupId(
+			uuid, groupId);
+	}
+
+	@Override
+	public com.liferay.portal.kernel.dao.orm.IndexableActionableDynamicQuery
+		getIndexableActionableDynamicQuery() {
+
+		return _guestbookEntryLocalService.getIndexableActionableDynamicQuery();
+	}
+
+	@Override
+	public String getOSGiServiceIdentifier() {
+		return _guestbookEntryLocalService.getOSGiServiceIdentifier();
+	}
+
+	
+	@Override
+	public com.liferay.portal.kernel.model.PersistedModel getPersistedModel(
+			java.io.Serializable primaryKeyObj)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _guestbookEntryLocalService.getPersistedModel(primaryKeyObj);
+	}
+	@Override
+	public com.liferay.docs.guestbook.model.GuestbookEntry updateGuestbookEntry(
+		com.liferay.docs.guestbook.model.GuestbookEntry guestbookEntry) {
+
+		return _guestbookEntryLocalService.updateGuestbookEntry(guestbookEntry);
+	}
+
+	@Override
+	public com.liferay.docs.guestbook.model.GuestbookEntry updateGuestbookEntry(
+			long entryId, long userId, long guestbookId, String name,
+			String email, String message,
+			com.liferay.portal.kernel.service.ServiceContext service)
+		throws com.liferay.portal.kernel.exception.PortalException {
+
+		return _guestbookEntryLocalService.updateGuestbookEntry(
+			entryId, userId, guestbookId, name, email, message, service);
+	}
+
+	@Override
+	public GuestbookEntryLocalService getWrappedService() {
+		return _guestbookEntryLocalService;
+	}
+
+	@Override
+	public void setWrappedService(
+		GuestbookEntryLocalService guestbookEntryLocalService) {
+
+		_guestbookEntryLocalService = guestbookEntryLocalService;
+	}
+
+	private GuestbookEntryLocalService _guestbookEntryLocalService;
+
+}

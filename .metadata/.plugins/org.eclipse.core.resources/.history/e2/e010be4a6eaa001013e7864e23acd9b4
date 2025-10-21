@@ -1,0 +1,14 @@
+<%@include file="/init.jsp"%>
+<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
+
+<%@ page import="com.liferay.portal.kernel.dao.search.ResultRow" %>
+<%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
+<%@ page import="com.liferay.docs.guestbook.model.Guestbook" %>
+
+<%
+	String mvcPath=ParamUtil.getString(request,"mvcPath");
+	ResultRow row=(ResultRow) request.getAttribute("SEARCH_CONTAINER_RESULT_ROW");
+	Guestbook guestbook=(Guestbook) row.getObject();
+%>
+<liferay-iu:icon-menu>
+</liferay-iu:icon-menu>

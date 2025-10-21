@@ -1,0 +1,22 @@
+package com.liferay.docs.guestbook.application.list;
+
+import com.liferay.application.list.BasePanelApp;
+import com.liferay.docs.guestbook.portlet.constants.GuestbookPortletKeys;
+
+public class GuestbookAdminPanelApp extends BasePanelApp {
+
+	  @Override
+      public String getPortletId() {
+          return GuestbookPortletKeys.GUESTBOOK_ADMIN;
+      }
+
+      @Override
+      @Reference(
+          target = "(javax.portlet.name=" + GuestbookPortletKeys.GUESTBOOK_ADMIN + ")",
+          unbind = "-"
+      )
+      public void setPortlet(Portlet portlet) {
+          super.setPortlet(portlet);
+      }
+
+}

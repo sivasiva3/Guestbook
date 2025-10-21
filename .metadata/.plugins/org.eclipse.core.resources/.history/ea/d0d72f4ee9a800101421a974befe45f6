@@ -1,0 +1,41 @@
+<%@ include file="/init.jsp" %>
+<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
+<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
+<portlet:defineObjects />
+<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui"%>
+<%@ taglib uri="http://liferay.com/tld/theme" prefix="liferay-theme" %>
+<liferay-theme:defineObjects />
+    
+<%@ page import="com.liferay.docs.guestbook.service.GuestbookEntryLocalServiceUtil" %>
+<%@ page import="com.liferay.portal.kernel.util.WebKeys" %>
+ <%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
+ <%@ page import="com.liferay.portal.kernel.util.HtmlUtil" %>
+  <%@ page import="com.liferay.petra.string.StringPool" %>
+  
+	 
+
+ 
+ 
+<%
+	long guestbookId= Long.valueOf((Long) renderRequest.getAttribute("guestbookId"));
+%>
+<h3>Welcome to our office</h3>
+ <aui:button-row cssClass="guestbook-buttons">
+ <portlet:renderURL var="addEntryURL">
+ 	<portlet:param name="mvcPath" value="/guestbook/edit_entry.jsp"></portlet:param>
+ 	 <portlet:param name="guestbookId" value="<%=String.valueOf(guestbookId)%>" />
+ </portlet:renderURL>
+
+ 	<aui:button onClick="<%= addEntryURL.toString() %>" value="Add Entry"></aui:button>
+ </aui:button-row>
+ 
+ <liferay-ui:search-container total="<%= GuestbookEntryLocalServiceUtil.getGuestbookEntriesCount()%>">
+ 	<liferay-ui:search-container-results results="<%=GuestbookEntryLocalServiceUtil.getGuestbookEntries(scopeGroupId.longValue(),guestbookId,searchContainer.getStart(),searchContainer.getEnd())  %>"/>
+ 	<liferay-ui:search-container-row className="com.liferay.docs.guestbook.model.GuestbookEntry" modelVar="entry">
+ 		<liferay-ui:search-container-column-text property="name"/>
+ 		<liferay-ui:search-container-column-text property="email"/>
+ 		<liferay-ui:search-container-column-text property="message"/>
+ 		<liferay-ui:search-container-column-jsp align="right" path="/guestbook/entry_actions.jsp"/>
+ 	</liferay-ui:search-container-row>
+ 	<liferay-ui:search-iterator></liferay-ui:search-iterator>
+</liferay-ui:search-container>

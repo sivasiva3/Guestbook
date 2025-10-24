@@ -1,8 +1,0 @@
-<%@include file="/init.jsp"%>
- <%@ page import="com.liferay.docs.guestbook.service.GuestbookLocalServiceUtil" %>
- <%@ page import="com.liferay.docs.guestbook.model.Guestbook" %>
-     <%@ include file="/guestbook/view.jsp" %>
- 
-<liferay-ui:search-container total="<%= GuestbookLocalServiceUtil.getGuestbookCount(scopeGroupId) %>">
-	<liferay-ur:search-container-results results=
-</liferay-ui:search-container>

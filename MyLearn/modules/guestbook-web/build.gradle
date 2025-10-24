@@ -1,10 +1,12 @@
 dependencies {
+
 	compileOnly group: "com.liferay.portal", name: "release.dxp.api"
-	implementation project(":modules:guestbook-service:guestbook-service-api")
- 	compileOnly project(":modules:guestbook-service:guestbook-service-service")
- 	implementation  group: 'com.liferay.portal', name: 'com.liferay.portal.kernel', version: "RELEVANT_VERSION"
+
+	compile project(":modules:guestbook-service:guestbook-service-api")
+
+	compile project(":modules:guestbook-service:guestbook-service-service")
+
 	cssBuilder group: "com.liferay", name: "com.liferay.css.builder", version: "3.1.0"
-	compileOnly group: "com.liferay", name: "com.liferay.frontend.taglib", version: "RELEVANT_VERSION"
-	compileOnly group: "com.liferay", name: "com.liferay.application.list.api" , version: "RELEVANT_VERSION"
- 	compileOnly group: "com.liferay", name: "com.liferay.petra.string" 
+
 }
+ 

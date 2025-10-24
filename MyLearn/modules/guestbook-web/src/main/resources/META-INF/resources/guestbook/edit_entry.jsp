@@ -1,11 +1,5 @@
-<%@ include file="/init.jsp" %>
-<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
-<%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
-<%@ page import="com.liferay.docs.guestbook.model.GuestbookEntry" %>
-<%@ page import="com.liferay.docs.guestbook.model.Guestbook" %>
-<%@ page import="com.liferay.docs.guestbook.service.GuestbookEntryLocalServiceUtil" %>
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
-<portlet:defineObjects />
+<%@ include file="../init.jsp" %>
+
 <%
  	long entryId = ParamUtil.getLong(renderRequest,"entryId");
  	GuestbookEntry entry=null;

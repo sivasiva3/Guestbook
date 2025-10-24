@@ -1,0 +1,12 @@
+Bundle-Name: guestbook-web
+Bundle-SymbolicName: com.liferay.docs.guestbook.portlet
+Bundle-Version: 1.0.0
+Export-Package: com.liferay.docs.guestbook.portlet.*
+Import-Package: com.liferay.docs.guestbook.service,\
+com.liferay.docs.guestbook.exception,\
+com.liferay.portal.kernel.*,\
+com.liferay.docs.guestbook.model,\
+javax.portlet,\
+com.liferay.application.list.api
+Private-Package: com.liferay.docs.guestbook.portlet.portlet,\
+    com.liferay.docs.guestbook.portlet.constants

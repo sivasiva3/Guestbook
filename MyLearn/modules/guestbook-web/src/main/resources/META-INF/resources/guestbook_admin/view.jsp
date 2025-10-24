@@ -1,14 +1,7 @@
-<%@include file="/init.jsp"%>
-<%@ page import="com.liferay.docs.guestbook.service.GuestbookLocalServiceUtil" %>
-<%@ page import="com.liferay.docs.guestbook.model.Guestbook" %>
-<%@ taglib uri="http://liferay.com/tld/ui" prefix="liferay-ui" %>
-<%@ page import="com.liferay.portal.kernel.util.ParamUtil" %>
-<%@ taglib uri="http://liferay.com/tld/aui" prefix="aui" %>
+<%@include file="../init.jsp"%>
 
-<%@ taglib uri="http://java.sun.com/portlet_2_0" prefix="portlet" %>
- 
 <%
-	long scopeGroupId=ParamUtil.getLong(request, "scopeGroupId");
+	String currentURL = request.getRequestURL().toString();
 %>
 <h1>Portlet working</h1>
 <liferay-ui:search-container total="<%= GuestbookLocalServiceUtil.getGuestbookCount(scopeGroupId) %>">
@@ -22,7 +15,7 @@
 <aui:button-row cssClass="guestbook-admin-buttons">
 	<portlet:renderURL var="addGuestbookURL">
 		<portlet:param name="mvcPath" value="/guestbook_admin/edit_guestbook.jsp"/>
-		<!-- <portlet:param name="redirect" value="<%=currentURL %>"/>-->
+		 <portlet:param name="redirect" value="<%=currentURL %>"/>
 	</portlet:renderURL>
-	<aui-button onClick="<%=addGuestbookURL.toString() %>" value="Add Guestbook"/>
+	<aui:button onClick="<%=addGuestbookURL.toString() %>" value="Add Guestbook"/>
 </aui:button-row>

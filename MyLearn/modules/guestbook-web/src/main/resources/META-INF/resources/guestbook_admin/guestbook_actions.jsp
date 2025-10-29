@@ -13,7 +13,7 @@
 	 <portlet:actionURL name="deleteGuestbook" var="deleteURL">
 		 <portlet:param name="guestbookId" value="<%= String.valueOf(guestbook.getGuestbookId()) %>" />
 	 </portlet:actionURL>
-	 <liferay-ui:icon-delete url="<%= deleteURL.toString() %>"/>
+	 <liferay-ui:icon-delete image="delete" url="<%= deleteURL.toString() %>"/>
 	 
 	  <c:if
 		 test="<%=GuestbookModelPermission.contains(permissionChecker, guestbook.getGuestbookId(), ActionKeys.PERMISSIONS) %>">

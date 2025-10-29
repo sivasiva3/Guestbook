@@ -4,13 +4,15 @@ import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.portlet.bridges.mvc.MVCPortlet;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
-import com.liferay.portal.kernel.util.ParamUtil;
+import com.liferay.portal.kernel.util.ParamUtil; 
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.liferay.docs.guestbook.constants.GuestbookPortletKeys;
 import com.liferay.docs.guestbook.model.Guestbook;
-import com.liferay.docs.guestbook.portlet.constants.GuestbookPortletKeys;
 import com.liferay.docs.guestbook.service.GuestbookLocalService;
 
 import javax.portlet.ActionRequest;
@@ -50,9 +52,10 @@ public class GuestbookAdminPortlet extends MVCPortlet {
 	        try {
 	            _guestbookLocalService.addGuestBook(
 	                serviceContext.getUserId(), name, serviceContext);
+	            SessionMessages.add(request, "guestbookAdded");
 	        }
 	        catch (PortalException pe) {
-
+	        	SessionErrors.add(request, pe.getClass().getName());
 	            Logger.getLogger(GuestbookAdminPortlet.class.getName()).log(
 	                Level.SEVERE, null, pe);
 
@@ -73,9 +76,9 @@ public class GuestbookAdminPortlet extends MVCPortlet {
 	        try {
 	            _guestbookLocalService.updateGuestbook(
 	                serviceContext.getUserId(), guestbookId, name, serviceContext);
-
+	            SessionMessages.add(request, "guestbookUpdated");
 	        } catch (PortalException pe) {
-	        
+	        	SessionErrors.add(request, pe.getClass().getName());
 	            Logger.getLogger(GuestbookAdminPortlet.class.getName()).log(
 	                Level.SEVERE, null, pe);
 
@@ -94,9 +97,10 @@ public class GuestbookAdminPortlet extends MVCPortlet {
 
 	        try {
 	            _guestbookLocalService.deleteGuestbook(guestbookId, serviceContext);
+	            SessionMessages.add(request, "guestbookDeleted");
 	        }
 	        catch (PortalException pe) {
-
+	        	SessionErrors.add(request, pe.getClass().getName());
 	            Logger.getLogger(GuestbookAdminPortlet.class.getName()).log(
 	                Level.SEVERE, null, pe);
 	        }

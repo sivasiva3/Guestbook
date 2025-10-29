@@ -1,10 +1,8 @@
 <%@include file="../init.jsp"%>
-
 <%
-	String currentURL = request.getRequestURL().toString();
+	String currentURL = PortalUtil.getCurrentCompleteURL(request);
 %>
-<h1>Portlet working</h1>
-<liferay-ui:search-container total="<%= GuestbookLocalServiceUtil.getGuestbookCount(scopeGroupId) %>">
+<liferay-ui:search-container var="searchContainer" total="<%= GuestbookLocalServiceUtil.getGuestbookCount(scopeGroupId) %>">
 	<liferay-ui:search-container-results results="<%= GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId, searchContainer.getStart(), searchContainer.getEnd()) %>"/>
 	<liferay-ui:search-container-row className="com.liferay.docs.guestbook.model.Guestbook" modelVar="guestbook">
 		<liferay-ui:search-container-column-text property="name"/>

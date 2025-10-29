@@ -1,5 +1,6 @@
 <%@include file="../init.jsp" %>
-
+<liferay-ui:success key="entryAdded" message="entry-added"/>
+<liferay-ui:success key="entryDeleted" message="entryDeleted"/>
 <%
 	long guestbookId = ParamUtil.getLong(request, "guestbookId");
 	if (guestbookId == 0 && renderRequest.getAttribute("guestbookId") != null) {
@@ -11,7 +12,6 @@
 	            guestbookId = guestbooks.get(0).getGuestbookId();
 	        }
 	    }
-
 %>
 <h3>Welcome to our office</h3>
 <aui:nav cssClass="nav-tabs">
@@ -23,6 +23,9 @@
 			if(curGuestbook.getGuestbookId()==guestbookId){
 				cssClass="active";
 			}
+			if(GuestbookModelPermission.contains(permissionChecker,curGuestbook.getGuestbookId(),"VIEW")){
+				
+			
 	%>
 	<portlet:renderURL var="viewPageURL">
 		<portlet:param name="mvcPath" value="/guestbook/view.jsp"/>
@@ -30,20 +33,23 @@
 	</portlet:renderURL>
 	<aui:nav-item cssClass="<%=cssClass%>" href="<%=viewPageURL %>" label="<%= HtmlUtil.escape(curGuestbook.getName()) %>"/>
 	<%
-	}
+			}
+		}
 	%>
 </aui:nav>
  <aui:button-row cssClass="guestbook-buttons">
- <portlet:renderURL var="addEntryURL">
- 	<portlet:param name="mvcPath" value="/guestbook/edit_entry.jsp"></portlet:param>
- 	 <portlet:param name="guestbookId" value="<%=String.valueOf(guestbookId)%>" />
- </portlet:renderURL>
-
- 	<aui:button onClick="<%= addEntryURL.toString() %>" value="Add Entry"></aui:button>
+ 	<c:if test="<%= GuestbookPermission.contains(permissionChecker,scopeGroupId,"ADD_ENTRY") %>">
+	 <portlet:renderURL var="addEntryURL">
+	 	<portlet:param name="mvcPath" value="/guestbook/edit_entry.jsp"></portlet:param>
+	 	<portlet:param name="guestbookId" value="<%=String.valueOf(guestbookId)%>" />
+	 </portlet:renderURL>
+	
+	 <aui:button onClick="<%= addEntryURL.toString() %>" value="Add Entry"></aui:button>
+	</c:if>
  </aui:button-row>
  
  <liferay-ui:search-container total="<%= GuestbookEntryLocalServiceUtil.getGuestbookEntriesCount()%>" >
- 	<liferay-ui:search-container-results results="<%=GuestbookEntryLocalServiceUtil.getGuestbookEntries(Math.toIntExact(scopeGroupId.longValue()),Math.toIntExact(guestbookId))  %>"/>
+ 	<liferay-ui:search-container-results results="<%=GuestbookEntryLocalServiceUtil.getGuestbookEntries(scopeGroupId,guestbookId,QueryUtil.ALL_POS,QueryUtil.ALL_POS)  %>"/>
  	<liferay-ui:search-container-row className="com.liferay.docs.guestbook.model.GuestbookEntry" modelVar="entry">
  		<liferay-ui:search-container-column-text property="name"/>
  		<liferay-ui:search-container-column-text property="email"/>

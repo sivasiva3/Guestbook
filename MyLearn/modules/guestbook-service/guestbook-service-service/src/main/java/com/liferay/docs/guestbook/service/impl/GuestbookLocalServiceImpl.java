@@ -20,8 +20,10 @@ import com.liferay.docs.guestbook.model.GuestbookEntry;
 import com.liferay.docs.guestbook.service.GuestbookEntryLocalService;
 import com.liferay.docs.guestbook.service.base.GuestbookLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
+import com.liferay.portal.kernel.dao.orm.QueryUtil;
 import com.liferay.portal.kernel.exception.PortalException;
 import com.liferay.portal.kernel.exception.SystemException;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.OrderByComparator;
@@ -42,9 +44,10 @@ import org.osgi.service.component.annotations.Reference;
 	service = AopService.class
 )
 public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
+	
 	public Guestbook addGuestBook(long userId,String name,ServiceContext service) throws PortalException {
 		long groupId=service.getScopeGroupId();
-		User user=userLocalService.getDefaultUser(userId);
+		User user=userLocalService.getUserById(userId);
 		validate(name);
 		Date now = new Date();
 		long guestbookId = counterLocalService.increment();
@@ -59,6 +62,7 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 		guestbook.setModifiedDate(service.getModifiedDate(now));
 		guestbook.setExpandoBridgeAttributes(service);
 		guestbookPersistence.update(guestbook);
+		resourceLocalService.addResources(user.getCompanyId(),groupId,userId,Guestbook.class.getName(),guestbookId,false,true,true);
 		return guestbook;	
 	}
 	public Guestbook updateGuestbook(long userId,long guestbookId,String name,ServiceContext service)throws PortalException,SystemException{
@@ -72,16 +76,19 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 		guestbook.setModifiedDate(service.getModifiedDate(now));
 		guestbook.setExpandoBridgeAttributes(service);
 		guestbookPersistence.update(guestbook);
+		resourceLocalService.updateResources(service.getCompanyId(),service.getScopeGroupId(),Guestbook.class.getName(),guestbookId,service.getModelPermissions());
 		return guestbook;
 		
 	}
 	public Guestbook deleteGuestbook(long guestbookId,ServiceContext service) throws PortalException,SystemException{
 		Guestbook guestbook=getGuestbook(guestbookId);
+		resourceLocalService.deleteResource(service.getCompanyId(),Guestbook.class.getName(),ResourceConstants.SCOPE_INDIVIDUAL,guestbookId);
 		List<GuestbookEntry> entries= _guestbookEntryLocalService.getGuestbookEntries(
-				Math.toIntExact(service.getScopeGroupId()),Math.toIntExact(guestbookId));
+				Math.toIntExact(service.getScopeGroupId()),Math.toIntExact(guestbookId), QueryUtil.ALL_POS, QueryUtil.ALL_POS);
 		for(GuestbookEntry entry:entries) {
 			_guestbookEntryLocalService.deleteGuestbookEntry(entry.getEntryId());
 		}
+		
 		return guestbook;
 	}
 	public List<Guestbook> getGuestbooks(long groupId){

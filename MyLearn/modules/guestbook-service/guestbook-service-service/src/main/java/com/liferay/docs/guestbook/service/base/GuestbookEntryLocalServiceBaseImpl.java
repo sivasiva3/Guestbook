@@ -534,8 +534,8 @@ public abstract class GuestbookEntryLocalServiceBaseImpl
 	 * @return the range of guestbook entries
 	 */
 	@Override
-	public List<GuestbookEntry> getGuestbookEntries(int start, int end) {
-		return guestbookEntryPersistence.findAll(start, end);
+	public List<GuestbookEntry> getGuestbookEntries(long groupId,long guestbookId,int start, int end) {
+		return guestbookEntryPersistence.findByG_G(groupId, guestbookId, start, end);
 	}
 
 	/**

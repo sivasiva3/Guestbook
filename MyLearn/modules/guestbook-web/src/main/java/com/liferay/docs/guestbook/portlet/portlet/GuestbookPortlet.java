@@ -1,8 +1,8 @@
 package com.liferay.docs.guestbook.portlet.portlet;
 
+import com.liferay.docs.guestbook.constants.GuestbookPortletKeys;
 import com.liferay.docs.guestbook.model.Guestbook;
 import com.liferay.docs.guestbook.model.GuestbookEntry;
-import com.liferay.docs.guestbook.portlet.constants.GuestbookPortletKeys;
 import com.liferay.docs.guestbook.service.GuestbookEntryLocalService;
 import com.liferay.docs.guestbook.service.GuestbookLocalService;
 import com.liferay.portal.kernel.exception.PortalException;
@@ -11,6 +11,8 @@ import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.service.ServiceContextFactory;
 import com.liferay.portal.kernel.util.ParamUtil;
 import com.liferay.portal.kernel.util.PortalUtil;
+import com.liferay.portal.kernel.servlet.SessionErrors;
+import com.liferay.portal.kernel.servlet.SessionMessages;
 
 import java.io.IOException;
 import java.util.List;
@@ -68,9 +70,10 @@ public class GuestbookPortlet extends MVCPortlet {
 	        }
 
 	        response.setRenderParameter("guestbookId", Long.toString(guestbookId));
+	        SessionMessages.add(request,"entryAdded");
 		}
 		catch(Exception e) {
-				System.out.println(e);
+				SessionErrors.add(request,e.getClass().getName());
 				PortalUtil.copyRequestParameters(request, response);
 				response.setRenderParameter("mvcPath", "/guestbook/edit_entry.jsp");
 		}
@@ -84,8 +87,10 @@ public class GuestbookPortlet extends MVCPortlet {
 		try {
 			response.setRenderParameter("guestbookId", Long.toString(guestbookId));
 			_guestbookEntryLocalService.deleteGuestbookEntry(entryId);
+			SessionMessages.add(request,"entryDeleted");
 		}
 		catch(Exception e) {
+			SessionErrors.add(request, e.getClass().getName());
 			Logger.getLogger(GuestbookPortlet.class.getName()).log(Level.SEVERE,null,e);
 		}
 	}

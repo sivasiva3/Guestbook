@@ -291,9 +291,9 @@ public class GuestbookEntryLocalServiceWrapper
 	 */
 	@Override
 	public java.util.List<com.liferay.docs.guestbook.model.GuestbookEntry>
-		getGuestbookEntries(int start, int end) {
+		getGuestbookEntries(long groupId, long guestbookId,int start, int end) {
 
-		return _guestbookEntryLocalService.getGuestbookEntries(start, end);
+		return _guestbookEntryLocalService.getGuestbookEntries(groupId,guestbookId,start, end);
 	}
 
 	/**

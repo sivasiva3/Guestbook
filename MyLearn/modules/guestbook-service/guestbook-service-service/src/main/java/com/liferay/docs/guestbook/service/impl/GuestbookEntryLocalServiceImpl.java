@@ -22,6 +22,7 @@ import com.liferay.docs.guestbook.service.GuestbookEntryLocalService;
 import com.liferay.docs.guestbook.service.base.GuestbookEntryLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.Validator;
@@ -63,6 +64,7 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 		entry.setGroupId(groupId);
 		entry.setExpandoBridgeAttributes(service);
 		guestbookEntryPersistence.update(entry);
+		resourceLocalService.addResources(user.getCompanyId(), groupId,userId,GuestbookEntry.class.getName(),entryId,false,true,true);
 		return entry;
 		
 	}	
@@ -92,11 +94,17 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 		entry.setMessage(message);
 		entry.setExpandoBridgeAttributes(service);
 		guestbookEntryPersistence.updateImpl(entry);
+		resourceLocalService.updateResources(user.getCompanyId(),service.getScopeGroupId(),GuestbookEntry.class.getName(),entryId,service.getModelPermissions());
 		return entry;
 		
 	}
 	public GuestbookEntry deleteGuestbookEntry(GuestbookEntry entry){
 		guestbookEntryPersistence.remove(entry);
+		try {
+			resourceLocalService.deleteResource(entry.getCompanyId(),GuestbookEntry.class.getName(),ResourceConstants.SCOPE_INDIVIDUAL, entry.getEntryId());
+		} catch (PortalException e) {
+			e.printStackTrace();
+		}
 		return entry;	
 	}
 	public GuestbookEntry deleteGuestbookEntry(long entryId) throws PortalException{

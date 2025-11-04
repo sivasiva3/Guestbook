@@ -7,6 +7,11 @@
 	String currentURL = PortalUtil.getCurrentURL(request);
 %>
 <liferay-ui:icon-menu>
+	<portlet:renderURL var="viewEntryURL">
+		<portlet:param name="entryId" value="<%= String.valueOf(entry.getEntryId()) %>"/>
+		<portlet:param name="mvcPath" value="/guestbook/view_entry.jsp"/>
+	</portlet:renderURL>
+	<liferay-ui:icon image="view" message="View" url="<%= viewEntryURL.toString() %>"/>
 	<c:if test="<%= GuestbookEntryPermission.contains(permissionChecker,entry.getEntryId(),ActionKeys.UPDATE) %>">
 		<portlet:renderURL var="editURL">
 			<portlet:param name="entryId" value="<%= String.valueOf(entry.getEntryId()) %>"/>

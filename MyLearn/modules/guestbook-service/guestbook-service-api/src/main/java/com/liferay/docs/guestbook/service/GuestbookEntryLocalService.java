@@ -64,6 +64,7 @@ public interface GuestbookEntryLocalService
 	 *
 	 * Never modify this interface directly. Add custom service methods to <code>com.liferay.docs.guestbook.service.impl.GuestbookEntryLocalServiceImpl</code> and rerun ServiceBuilder to automatically copy the method declarations to this interface. Consume the guestbook entry local service via injection or a <code>org.osgi.util.tracker.ServiceTracker</code>. Use {@link GuestbookEntryLocalServiceUtil} if injection and service tracking are not available.
 	 */
+	@Indexable(type = IndexableType.REINDEX)
 	public GuestbookEntry addEntry(
 			long userId, long guestbookId, String name, String email,
 			String message, ServiceContext service)
@@ -231,15 +232,13 @@ public interface GuestbookEntryLocalService
 	 * <p>
 	 * Useful when paginating results. Returns a maximum of <code>end - start</code> instances. <code>start</code> and <code>end</code> are not primary keys, they are indexes in the result set. Thus, <code>0</code> refers to the first result in the set. Setting both <code>start</code> and <code>end</code> to <code>com.liferay.portal.kernel.dao.orm.QueryUtil#ALL_POS</code> will return the full result set. If <code>orderByComparator</code> is specified, then the query will include the given ORDER BY logic. If <code>orderByComparator</code> is absent, then the query will include the default ORDER BY logic from <code>com.liferay.docs.guestbook.model.impl.GuestbookEntryModelImpl</code>.
 	 * </p>
-	 * @param guestbookId 
-	 * @param groupId 
 	 *
 	 * @param start the lower bound of the range of guestbook entries
 	 * @param end the upper bound of the range of guestbook entries (not inclusive)
 	 * @return the range of guestbook entries
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
-	public List<GuestbookEntry> getGuestbookEntries(long groupId, long guestbookId, int start, int end);
+	public List<GuestbookEntry> getGuestbookEntries(long groupId, long guestbookId,int start, int end);
 
 	/**
 	 * Returns all the guestbook entries matching the UUID and company.
@@ -330,6 +329,7 @@ public interface GuestbookEntryLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public GuestbookEntry updateGuestbookEntry(GuestbookEntry guestbookEntry);
 
+	@Indexable(type = IndexableType.REINDEX)
 	public GuestbookEntry updateGuestbookEntry(
 			long entryId, long userId, long guestbookId, String name,
 			String email, String message, ServiceContext service)

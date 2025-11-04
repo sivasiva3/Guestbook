@@ -8,8 +8,8 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
-			<item value="// ServiceImpl method"/>
 			<item value="getGuestbookEntries"/>
+			<item value="// ServiceImpl method"/>
 			<item value="getGuestbookEntriesCount"/>
 			<item value="scopeGroupId"/>
 			<item value="getScopeGroupId"/>

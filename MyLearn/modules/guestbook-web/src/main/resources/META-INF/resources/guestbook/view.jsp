@@ -14,6 +14,19 @@
 	    }
 %>
 <h3>Welcome to our office</h3>
+<portlet:renderURL var="searchURL">
+	<portlet:param name="mvcPath" value="/guestbook/view_search.jsp"/>
+</portlet:renderURL>
+<aui:form action="${searchURL}" name="fm">
+	<div class="row">
+		<div class="col-md-6">
+			<aui:input inlinelabel="right" label="" name="keywords" placeholder="search" size="256"></aui:input>
+		</div>
+		<div class="col-md-2">
+			<aui:button type="submit" value="search"></aui:button>
+		</div>
+	</div>
+</aui:form>
 <aui:nav cssClass="nav-tabs">
 	<% 
 		List<Guestbook> guestbooks=GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId);

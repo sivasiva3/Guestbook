@@ -49,6 +49,7 @@
 <%@ page import="com.liferay.asset.kernel.service.AssetTagLocalServiceUtil" %>
 <%@ page import="com.liferay.asset.kernel.model.AssetEntry" %>
 <%@ page import="com.liferay.asset.kernel.model.AssetTag" %>
+<%@ page import="com.liferay.portal.kernel.workflow.WorkflowConstants"%>
 <%@ page import="com.liferay.petra.string.StringPool" %>
 
 <%@ page import="java.util.ArrayList" %>

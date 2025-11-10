@@ -29,7 +29,7 @@
 </aui:form>
 <aui:nav cssClass="nav-tabs">
 	<% 
-		List<Guestbook> guestbooks=GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId);
+		List<Guestbook> guestbooks=GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId,WorkflowConstants.STATUS_APPROVED);
 		for(int i=0; i<guestbooks.size(); i++){
 			Guestbook curGuestbook=guestbooks.get(i);
 			String cssClass=StringPool.BLANK;
@@ -37,8 +37,6 @@
 				cssClass="active";
 			}
 			if(GuestbookModelPermission.contains(permissionChecker,curGuestbook.getGuestbookId(),"VIEW")){
-				
-			
 	%>
 	<portlet:renderURL var="viewPageURL">
 		<portlet:param name="mvcPath" value="/guestbook/view.jsp"/>
@@ -61,8 +59,8 @@
 	</c:if>
  </aui:button-row>
  
- <liferay-ui:search-container total="<%= GuestbookEntryLocalServiceUtil.getGuestbookEntriesCount()%>" >
- 	<liferay-ui:search-container-results results="<%=GuestbookEntryLocalServiceUtil.getGuestbookEntries(scopeGroupId,guestbookId,QueryUtil.ALL_POS,QueryUtil.ALL_POS)  %>"/>
+ <liferay-ui:search-container total="<%= GuestbookEntryLocalServiceUtil.getGuestbookEntriesCount(scopeGroupId.longValue(),guestbookId,WorkflowConstants.STATUS_APPROVED)%>" >
+ 	<liferay-ui:search-container-results results="<%=GuestbookEntryLocalServiceUtil.getGuestbookEntries(scopeGroupId.longValue(),guestbookId,WorkflowConstants.STATUS_APPROVED,searchContainer.getStart(),searchContainer.getEnd())  %>"/>
  	<liferay-ui:search-container-row className="com.liferay.docs.guestbook.model.GuestbookEntry" modelVar="entry">
  		<liferay-ui:search-container-column-text property="name"/>
  		<liferay-ui:search-container-column-text property="email"/>

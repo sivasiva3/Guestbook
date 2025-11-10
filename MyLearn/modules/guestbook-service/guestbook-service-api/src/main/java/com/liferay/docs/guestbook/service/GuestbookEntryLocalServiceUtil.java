@@ -18,6 +18,7 @@ import com.liferay.docs.guestbook.model.GuestbookEntry;
 import com.liferay.petra.sql.dsl.query.DSLQuery;
 import com.liferay.portal.kernel.dao.orm.DynamicQuery;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.PersistedModel;
 import com.liferay.portal.kernel.util.OrderByComparator;
 
@@ -260,8 +261,16 @@ public class GuestbookEntryLocalServiceUtil {
 	 * @param end the upper bound of the range of guestbook entries (not inclusive)
 	 * @return the range of guestbook entries
 	 */
-	public static List<GuestbookEntry> getGuestbookEntries(long groupId,long guestbookId,int start, int end) {
+	public static List<GuestbookEntry> getGuestbookEntries(long groupId, long guestbookId,int start, int end) {
 		return getService().getGuestbookEntries(groupId,guestbookId,start, end);
+	}
+
+	public static List<GuestbookEntry> getGuestbookEntries(
+			long groupId, long guestbookId, int status, int start, int end)
+		throws SystemException {
+
+		return getService().getGuestbookEntries(
+			groupId, guestbookId, status, start, end);
 	}
 
 	/**
@@ -303,6 +312,14 @@ public class GuestbookEntryLocalServiceUtil {
 	 */
 	public static int getGuestbookEntriesCount() {
 		return getService().getGuestbookEntriesCount();
+	}
+
+	public static int getGuestbookEntriesCount(
+			long groupId, long guestbookId, int status)
+		throws SystemException {
+
+		return getService().getGuestbookEntriesCount(
+			groupId, guestbookId, status);
 	}
 
 	/**
@@ -382,6 +399,15 @@ public class GuestbookEntryLocalServiceUtil {
 
 		return getService().updateGuestbookEntry(
 			entryId, userId, guestbookId, name, email, message, service);
+	}
+
+	public static GuestbookEntry updateStatus(
+			long userId, long guestbookId, long entryId, int status,
+			com.liferay.portal.kernel.service.ServiceContext service)
+		throws PortalException, SystemException {
+
+		return getService().updateStatus(
+			userId, guestbookId, entryId, status, service);
 	}
 
 	public static GuestbookEntryLocalService getService() {

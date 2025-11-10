@@ -70,7 +70,7 @@
 		<column name="email" type="String"/>
 		<column name="message" type="String"/>
 		<column name="guestbookId" type="long"/>
-		 
+		
 		<finder name="G_G" return-type="Collection">
 			<finder-column name="groupId"/>
 			<finder-column name="guestbookId"/>

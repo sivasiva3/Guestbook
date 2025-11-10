@@ -32,13 +32,18 @@ public class GuestbookEntryModelDocumentContributor implements ModelDocumentCont
 			
 			String localizedTitle= LocalizationUtil.getLocalizedName(Field.TITLE,defaultLocale.toString());
 			String localizedContent =LocalizationUtil.getLocalizedName(Field.CONTENT,defaultLocale.toString());
+//			String localizedStatus= LocalizationUtil.getLocalizedName(Field.STATUS,defaultLocale.toString());
 			
 			document.addText(localizedTitle, entry.getName());
 			document.addText(localizedContent, entry.getMessage());
+//			document.addText(localizedStatus, String.valueOf(entry.getStatus()));
+			
 			long guestbookId =entry.getGuestbookId();
 			Guestbook guestbook=_guestbookLocalService.getGuestbook(guestbookId);
+			
 			String guestbookName=guestbook.getName();
 			String localizedGbName=LocalizationUtil.getLocalizedName(Field.NAME, defaultLocale.toString());
+			
 			document.addText(localizedGbName,guestbookName);
 		}
 		catch(PortalException e) {

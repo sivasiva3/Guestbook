@@ -271,6 +271,10 @@ public interface GuestbookLocalService
 	public List<Guestbook> getGuestbooks(long groupId);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<Guestbook> getGuestbooks(long groupId, int status)
+		throws SystemException;
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<Guestbook> getGuestbooks(long groupId, int start, int end);
 
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
@@ -345,6 +349,11 @@ public interface GuestbookLocalService
 	@Indexable(type = IndexableType.REINDEX)
 	public Guestbook updateGuestbook(
 			long userId, long guestbookId, String name, ServiceContext service)
+		throws PortalException, SystemException;
+
+	public Guestbook updateStatus(
+			long userId, long guestbookId, int status,
+			ServiceContext serviceContext)
 		throws PortalException, SystemException;
 
 }

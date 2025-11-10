@@ -25,29 +25,46 @@
 <%
 	SearchContext searchContext=SearchContextFactory.getInstance(request);
 	searchContext.setKeywords(keywords);
+	
 	searchContext.setAttribute("paginationType", "more");
 	searchContext.setStart(0);
 	searchContext.setEnd(10);
+	/* searchContext.setCompanyId(themeDisplay.getCompanyId());
+	searchContext.setGroupIds(new long[] { themeDisplay.getScopeGroupId() });
+	
+	System.out.println("Company ID : "+themeDisplay.getCompanyId()); */
+	
 	Indexer<GuestbookEntry> indexer=IndexerRegistryUtil.getIndexer(GuestbookEntry.class);
 	Hits hits =indexer.search(searchContext);
+	
+	if (indexer == null) {
+	    _log.error("Indexer for GuestbookEntry is null!");
+	}
+	if (hits == null) {
+	    _log.error("Search returned null Hits!");
+	}
+	
 	List<GuestbookEntry> entries=new ArrayList<GuestbookEntry>();
+	
 	for(int i=0; i<hits.getDocs().length; i++){
 		Document doc=hits.doc(i);
 		long entryId=GetterUtil.getLong(doc.get(Field.ENTRY_CLASS_PK));
 		GuestbookEntry entry=null;
-		try{
-			entry=GuestbookEntryLocalServiceUtil.getGuestbookEntry(entryId);
-		}
-		catch(PortalException pe){
-			_log.error(pe.getLocalizedMessage());
-		}
-		catch(SystemException se){
+			try{
+				entry=GuestbookEntryLocalServiceUtil.getGuestbookEntry(entryId);
+			}
+			catch(PortalException pe){
+				_log.error(pe.getLocalizedMessage());
+			}
+			catch(SystemException se){
 			_log.error(se.getLocalizedMessage());
 		}
 		entries.add(entry);
-	}
+		}
+	
 	List<Guestbook> guestbooks=GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId);
 	Map<String,String> guestbookMap=new HashMap<String,String>();
+	
 	for(Guestbook guestbook:guestbooks){
 		guestbookMap.put(Long.toString(guestbook.getGuestbookId()),guestbook.getName());
 	}

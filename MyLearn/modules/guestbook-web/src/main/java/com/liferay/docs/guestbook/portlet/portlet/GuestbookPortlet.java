@@ -43,7 +43,8 @@ import org.osgi.service.component.annotations.Reference;
 		"javax.portlet.init-param.view-template=/guestbook/view.jsp",
 		"javax.portlet.name=" + GuestbookPortletKeys.GUESTBOOK,
 		"javax.portlet.resource-bundle=content.Language",
-		"javax.portlet.security-role-ref=power-user,user"
+		"javax.portlet.security-role-ref=power-user,user",
+		"javax.portlet.version=3.0"
 	},
 	service = Portlet.class
 )
@@ -119,27 +120,3 @@ public class GuestbookPortlet extends MVCPortlet {
 		super.render(request, response);
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

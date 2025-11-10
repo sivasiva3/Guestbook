@@ -43,22 +43,8 @@
 			%>
 			<c:if test="<%=discussion != null %>">
 				<h2><strong><liferay-ui:message arguments="<%= discussion.getDiscussionCommentsCount() %>" key="<%= (discussion.getDiscussionCommentsCount() == 1) ? "x-comment" : "x-comments"%>"></liferay-ui:message></strong></h2>
-				<liferay-comment:discussion  userId="<%= entry.getUserId() %>" className="<%= GuestbookEntry.class.getName() %>" classPK="<%=entry.getEntryId() %>" discussion="<%= discussion %>" formName="fm2"  redirect="<%= currentURL %>"/>
+				<liferay-comment:discussion  userId="<%= themeDisplay.getUserId() %>" className="<%= GuestbookEntry.class.getName() %>" classPK="<%=entry.getEntryId() %>" discussion="<%= discussion %>" formName="fm2"  redirect="<%= currentURL %>"/>
 			</c:if>
 		</liferay-ui:panel> 
 	</liferay-ui:panel-container>
 </c:if>
-
-
-
-
-
-
-
-
-
-
-
-
-
-

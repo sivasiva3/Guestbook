@@ -240,6 +240,11 @@ public interface GuestbookEntryLocalService
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public List<GuestbookEntry> getGuestbookEntries(long groupId, long guestbookId,int start, int end);
 
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public List<GuestbookEntry> getGuestbookEntries(
+			long groupId, long guestbookId, int status, int start, int end)
+		throws SystemException;
+
 	/**
 	 * Returns all the guestbook entries matching the UUID and company.
 	 *
@@ -273,6 +278,11 @@ public interface GuestbookEntryLocalService
 	 */
 	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
 	public int getGuestbookEntriesCount();
+
+	@Transactional(propagation = Propagation.SUPPORTS, readOnly = true)
+	public int getGuestbookEntriesCount(
+			long groupId, long guestbookId, int status)
+		throws SystemException;
 
 	/**
 	 * Returns the guestbook entry with the primary key.
@@ -334,5 +344,10 @@ public interface GuestbookEntryLocalService
 			long entryId, long userId, long guestbookId, String name,
 			String email, String message, ServiceContext service)
 		throws PortalException;
+
+	public GuestbookEntry updateStatus(
+			long userId, long guestbookId, long entryId, int status,
+			ServiceContext service)
+		throws PortalException, SystemException;
 
 }

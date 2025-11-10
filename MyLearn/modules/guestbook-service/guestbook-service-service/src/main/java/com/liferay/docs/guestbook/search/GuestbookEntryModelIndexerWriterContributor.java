@@ -21,7 +21,7 @@ public class GuestbookEntryModelIndexerWriterContributor implements ModelIndexer
 	public void customize(
 			BatchIndexingActionable batchIndexingActionable,
 			ModelIndexerWriterDocumentHelper modelIndexerWriterDocumentHelper) {
-		batchIndexingActionable.setPerformActionMethod((Guestbook entry)->{
+		batchIndexingActionable.setPerformActionMethod((GuestbookEntry entry)->{
 			Document document=modelIndexerWriterDocumentHelper.getDocument(entry);
 			batchIndexingActionable.addDocuments(document);
 		});

@@ -6,6 +6,7 @@
 	<liferay-ui:search-container-results results="<%= GuestbookLocalServiceUtil.getGuestbooks(scopeGroupId, searchContainer.getStart(), searchContainer.getEnd()) %>"/>
 	<liferay-ui:search-container-row className="com.liferay.docs.guestbook.model.Guestbook" modelVar="guestbook">
 		<liferay-ui:search-container-column-text property="name"/>
+		<liferay-ui:search-container-column-status property="status"/>
 		<liferay-ui:search-container-column-jsp align="center" path="/guestbook_admin/guestbook_actions.jsp"/>
 	</liferay-ui:search-container-row>
 	<liferay-ui:search-iterator></liferay-ui:search-iterator>

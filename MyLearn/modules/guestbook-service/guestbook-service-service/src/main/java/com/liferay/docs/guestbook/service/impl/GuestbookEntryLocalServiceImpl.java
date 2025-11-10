@@ -23,6 +23,7 @@ import com.liferay.docs.guestbook.model.GuestbookEntry;
 import com.liferay.docs.guestbook.service.base.GuestbookEntryLocalServiceBaseImpl;
 import com.liferay.portal.aop.AopService;
 import com.liferay.portal.kernel.exception.PortalException;
+import com.liferay.portal.kernel.exception.SystemException;
 import com.liferay.portal.kernel.model.ResourceConstants;
 import com.liferay.portal.kernel.model.User;
 import com.liferay.portal.kernel.search.Indexable;
@@ -30,8 +31,11 @@ import com.liferay.portal.kernel.search.IndexableType;
 import com.liferay.portal.kernel.service.ServiceContext;
 import com.liferay.portal.kernel.util.ContentTypes;
 import com.liferay.portal.kernel.util.Validator;
+import com.liferay.portal.kernel.workflow.WorkflowConstants;
+import com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import org.osgi.service.component.annotations.Component;
@@ -49,12 +53,19 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 //	 private GuestbookEntryLocalService _guestbookEntryLocalService;
 	@Indexable(type=IndexableType.REINDEX)
 	public GuestbookEntry addEntry(long userId,long guestbookId,String name,String email,String message,ServiceContext service) throws PortalException {
+		
 		long groupId = service.getScopeGroupId();
+		
 		User user=userLocalService.getUserById(userId);
+		
 		Date now=new Date();
+		
 		validate(name,email,message);
+		
 		long entryId=counterLocalService.increment();
+		
 		GuestbookEntry entry=guestbookEntryPersistence.create(entryId);
+		
 		entry.setUuid(UUID.randomUUID().toString());
 		entry.setCreateDate(service.getCreateDate(now));
 		entry.setModifiedDate(service.getModifiedDate(now));
@@ -67,7 +78,13 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 		entry.setUserName(user.getFullName());
 		entry.setGroupId(groupId);
 		entry.setExpandoBridgeAttributes(service);
+		entry.setStatus(WorkflowConstants.STATUS_DRAFT);
+		entry.setStatusByUserId(userId);
+		entry.setStatusByUserName(user.getFullName());
+		entry.setStatusDate(service.getModifiedDate(null));
+		
 		guestbookEntryPersistence.update(entry);
+		
 		resourceLocalService.addResources(user.getCompanyId(), groupId,userId,GuestbookEntry.class.getName(),entryId,false,true,true);
 		
 		AssetEntry assetEntry = assetEntryLocalService.updateEntry(userId, groupId, entry.getCreateDate(), entry.getModifiedDate(), GuestbookEntry.class.getName(), 
@@ -78,6 +95,7 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 		
 	}	
 	protected void validate(String name,String email,String message)throws PortalException {
+		
 		if(Validator.isNull(message)) {
 			throw new GuestbookEntryMessageException();
 			}
@@ -104,8 +122,8 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 		entry.setExpandoBridgeAttributes(service);
 		guestbookEntryPersistence.updateImpl(entry);
 		resourceLocalService.updateResources(user.getCompanyId(),service.getScopeGroupId(),GuestbookEntry.class.getName(),entryId,service.getModelPermissions());
+		WorkflowHandlerRegistryUtil.startWorkflowInstance(entry.getCompanyId(), entry.getGroupId(), entry.getUserId(), GuestbookEntry.class.getName(), entry.getPrimaryKey(),entry, service);
 		return entry;
-		
 	}
 	@Indexable(type=IndexableType.DELETE)
 	public GuestbookEntry deleteGuestbookEntry(GuestbookEntry entry){
@@ -123,6 +141,34 @@ public class GuestbookEntryLocalServiceImpl extends GuestbookEntryLocalServiceBa
 	}
 	public GuestbookEntry deleteGuestbookEntry(long entryId) throws PortalException{
 		GuestbookEntry entry=guestbookEntryPersistence.findByPrimaryKey(entryId);
+		workflowInstanceLinkLocalService.deleteWorkflowInstanceLinks(entry.getCompanyId(), entry.getGroupId(), GuestbookEntry.class.getName(), entry.getEntryId());
 		return deleteGuestbookEntry(entry);	
+	}
+	public GuestbookEntry updateStatus(long userId,long guestbookId,long entryId,int status,ServiceContext service)throws PortalException,SystemException{
+		
+		User user=userLocalService.getUser(userId);
+		GuestbookEntry entry=getGuestbookEntry(entryId);
+		
+		entry.setStatus(status);
+		entry.setStatusByUserId(userId);
+		entry.setStatusByUserName(user.getFullName());
+		entry.setStatusDate(new Date());
+		
+		guestbookEntryPersistence.update(entry);
+		
+		if(status== WorkflowConstants.STATUS_APPROVED) {
+			assetEntryLocalService.updateVisible(GuestbookEntry.class.getName(), entryId, true);
+		}
+		else {
+			assetEntryLocalService.updateVisible(GuestbookEntry.class.getName(), entryId,false);
+		}
+		
+		return entry;
+	}
+	public List<GuestbookEntry> getGuestbookEntries(long groupId, long guestbookId, int status, int start,int end)throws SystemException{
+		return guestbookEntryPersistence.findByG_G_S(groupId, guestbookId, WorkflowConstants.STATUS_APPROVED);
+	}
+	public int getGuestbookEntriesCount(long groupId,long guestbookId, int status)throws SystemException{
+		return guestbookEntryPersistence.filterCountByG_G_S(groupId, guestbookId, WorkflowConstants.STATUS_APPROVED);
 	}
 }

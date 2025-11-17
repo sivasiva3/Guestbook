@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="com.liferay.portal.kernel.search.Document"/>
-<fullyQualifiedTypeName name="com.liferay.portal.kernel.search.Field"/>
-<fullyQualifiedTypeName name="com.liferay.petra.string.StringPool"/>
-<fullyQualifiedTypeName name="com.liferay.portal.kernel.search.IndexableType"/>
-<fullyQualifiedTypeName name="com.liferay.portal.kernel.search.Indexable"/>
-<fullyQualifiedTypeName name="com.liferay.portal.kernel.util.ContentTypes"/>
-<fullyQualifiedTypeName name="com.liferay.asset.kernel.model.AssetEntry"/>
-<fullyQualifiedTypeName name="com.liferay.asset.kernel.model.AssetLinkConstants"/>
-<fullyQualifiedTypeName name="com.liferay.docs.guestbook.web.internal.asset.GuestbookAssetRenderer"/>
-<fullyQualifiedTypeName name="com.liferay.petra.string.StringUtil"/>
-<fullyQualifiedTypeName name="java.util.logging.Logger"/>
-<fullyQualifiedTypeName name="com.liferay.docs.guestbook.web.security.permission.resource.GuestbookPermission"/>
-<fullyQualifiedTypeName name="java.util.logging.Level"/>
 <fullyQualifiedTypeName name="com.liferay.asset.kernel.model.BaseJSPAssetRenderer"/>
 <fullyQualifiedTypeName name="com.liferay.portal.kernel.security.permission.ActionKeys"/>
 <fullyQualifiedTypeName name="javax.portlet.PortletResponse"/>
@@ -41,7 +28,6 @@
 <fullyQualifiedTypeName name="javax.servlet.ServletContext"/>
 <fullyQualifiedTypeName name="com.liferay.portal.kernel.security.permission.resource.ModelResourcePermission"/>
 <fullyQualifiedTypeName name="com.liferay.portal.kernel.exception.SystemException"/>
-<fullyQualifiedTypeName name="java.util.List"/>
 <fullyQualifiedTypeName name="com.liferay.docs.guestbook.model.Guestbook"/>
 <fullyQualifiedTypeName name="com.liferay.docs.guestbook.service.GuestbookLocalService"/>
 <fullyQualifiedTypeName name="org.osgi.service.component.annotations.Component"/>
@@ -50,14 +36,28 @@
 <fullyQualifiedTypeName name="java.util.Map"/>
 <fullyQualifiedTypeName name="com.liferay.portal.kernel.util.GetterUtil"/>
 <fullyQualifiedTypeName name="java.io.Serializable"/>
-<fullyQualifiedTypeName name="com.liferay.portal.kernel.exception.PortalException"/>
 <fullyQualifiedTypeName name="java.util.Locale"/>
-<fullyQualifiedTypeName name="com.liferay.portal.kernel.service.ServiceContext"/>
 <fullyQualifiedTypeName name="com.liferay.docs.guestbook.service.GuestbookEntryLocalService"/>
-<fullyQualifiedTypeName name="org.osgi.service.component.annotations.Reference"/>
 <fullyQualifiedTypeName name="com.liferay.portal.kernel.security.permission.ResourceActions"/>
 <fullyQualifiedTypeName name="com.liferay.portal.kernel.workflow.WorkflowHandlerRegistryUtil"/>
 <fullyQualifiedTypeName name="com.liferay.portal.kernel.service.WorkflowInstanceLinkLocalService"/>
 <fullyQualifiedTypeName name="com.liferay.portal.kernel.workflow.WorkflowHandler"/>
 <fullyQualifiedTypeName name="com.liferay.portal.kernel.workflow.WorkflowConstants"/>
+<fullyQualifiedTypeName name="com.liferay.docs.employee.service.impl.EmployeeLocalServiceImpl"/>
+<fullyQualifiedTypeName name="com.liferay.portal.aop.AopService"/>
+<fullyQualifiedTypeName name="org.osgi.service.component.annotations.Reference"/>
+<fullyQualifiedTypeName name="javax.portlet.ActionResponse"/>
+<fullyQualifiedTypeName name="javax.portlet.ActionRequest"/>
+<fullyQualifiedTypeName name="com.liferay.portal.kernel.exception.PortalException"/>
+<fullyQualifiedTypeName name="com.liferay.portal.kernel.service.ServiceContextFactory"/>
+<fullyQualifiedTypeName name="com.liferay.portal.kernel.service.ServiceContext"/>
+<fullyQualifiedTypeName name="com.liferay.portal.kernel.util.ParamUtil"/>
+<fullyQualifiedTypeName name="java.text.SimpleDateFormat"/>
+<fullyQualifiedTypeName name="java.util.Date"/>
+<fullyQualifiedTypeName name="javax.portlet.RenderRequest"/>
+<fullyQualifiedTypeName name="javax.portlet.RenderResponse"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="com.liferay.docs.employee.model.Employee"/>
+<fullyQualifiedTypeName name="com.liferay.docs.employee.service.EmployeeLocalService"/>
 </qualifiedTypeNameHistroy>

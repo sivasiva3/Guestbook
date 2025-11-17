@@ -261,8 +261,8 @@ public class GuestbookEntryLocalServiceUtil {
 	 * @param end the upper bound of the range of guestbook entries (not inclusive)
 	 * @return the range of guestbook entries
 	 */
-	public static List<GuestbookEntry> getGuestbookEntries(long groupId, long guestbookId,int start, int end) {
-		return getService().getGuestbookEntries(groupId,guestbookId,start, end);
+	public static List<GuestbookEntry> getGuestbookEntries(long groupId,long guestbookId,int start, int end) {
+		return getService().getGuestbookEntries(guestbookId,groupId,start, end);
 	}
 
 	public static List<GuestbookEntry> getGuestbookEntries(

@@ -100,18 +100,23 @@ public class GuestbookPortlet extends MVCPortlet {
 	public void render(RenderRequest request,RenderResponse response) throws IOException,PortletException {
 		try {
 			ServiceContext service=ServiceContextFactory.getInstance(Guestbook.class.getName(),request);
+			
 			long groupId=service.getScopeGroupId();
 			long guestbookId=ParamUtil.getLong(request, "guestbookId");
+			
 			List<Guestbook> guestbooks=_guestbookLocalService.getGuestbooks(groupId);
+			
 			if(guestbooks.isEmpty()) {
 				Guestbook guestbook=_guestbookLocalService.addGuestBook(service.getUserId(), "Main", service);
 				guestbookId=guestbook.getGuestbookId();
 				 // Re-fetch the list to include the new guestbook
 	            guestbooks = _guestbookLocalService.getGuestbooks(groupId);
 			}
+			
 			if(guestbookId==0) {
 				guestbookId=guestbooks.get(0).getGuestbookId();
 			}
+			
 			request.setAttribute("guestbookId", guestbookId);
 		}
 		catch(Exception e) {

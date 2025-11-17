@@ -14,9 +14,13 @@
 	    }
 %>
 <h3>Welcome to our office</h3>
+
+<!--Search  -->
 <portlet:renderURL var="searchURL">
 	<portlet:param name="mvcPath" value="/guestbook/view_search.jsp"/>
 </portlet:renderURL>
+
+<!--Search  -->
 <aui:form action="${searchURL}" name="fm">
 	<div class="row">
 		<div class="col-md-6">
@@ -59,7 +63,7 @@
 	</c:if>
  </aui:button-row>
  
- <liferay-ui:search-container total="<%= GuestbookEntryLocalServiceUtil.getGuestbookEntriesCount(scopeGroupId.longValue(),guestbookId,WorkflowConstants.STATUS_APPROVED)%>" >
+<liferay-ui:search-container total="<%= GuestbookEntryLocalServiceUtil.getGuestbookEntriesCount(scopeGroupId.longValue(),guestbookId,WorkflowConstants.STATUS_APPROVED)%>" >
  	<liferay-ui:search-container-results results="<%=GuestbookEntryLocalServiceUtil.getGuestbookEntries(scopeGroupId.longValue(),guestbookId,WorkflowConstants.STATUS_APPROVED,searchContainer.getStart(),searchContainer.getEnd())  %>"/>
  	<liferay-ui:search-container-row className="com.liferay.docs.guestbook.model.GuestbookEntry" modelVar="entry">
  		<liferay-ui:search-container-column-text property="name"/>

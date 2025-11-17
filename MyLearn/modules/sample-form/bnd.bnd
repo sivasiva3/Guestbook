@@ -1,0 +1,4 @@
+Bundle-Name: sample-form
+Bundle-SymbolicName: com.example.sample
+Bundle-Version: 1.0.0
+Export-Package: com.example.sample.constants

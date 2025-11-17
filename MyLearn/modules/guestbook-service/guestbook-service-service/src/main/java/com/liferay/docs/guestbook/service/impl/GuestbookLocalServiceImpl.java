@@ -57,10 +57,15 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 		try {
 			long groupId=service.getScopeGroupId();
 			User user=userLocalService.getUserById(userId);
+			
 			validate(name);
+			
 			Date now = new Date();
+			
 			long guestbookId = counterLocalService.increment();
+			
 			Guestbook guestbook= guestbookPersistence.create(guestbookId);
+			
 			guestbook.setUuid(PortalUUIDUtil.generate());
 			guestbook.setUserId(userId);
 			guestbook.setCompanyId(user.getCompanyId());
@@ -77,13 +82,17 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 			guestbook.setStatus(WorkflowConstants.STATUS_DRAFT);
 			guestbook.setStatusByUserName(user.getFullName());
 			guestbook.setStatusDate(service.getModifiedDate(null));
-//			System.out.println("Primary Key : "+guestbook.getPrimaryKey());
+			
 			guestbookPersistence.update(guestbook);
+			
 			resourceLocalService.addResources(user.getCompanyId(),groupId,userId,Guestbook.class.getName(),guestbookId,false,true,true);
+			
 			AssetEntry assetEntry=assetEntryLocalService.updateEntry(guestbook.getUserId(),guestbook.getGroupId(),guestbook.getCreateDate(),guestbook.getModifiedDate(),Guestbook.class.getName(),
 					guestbookId,guestbook.getUuid(),0,service.getAssetCategoryIds(),service.getAssetTagNames(),true,true,guestbook.getCreateDate(),
 					null,null,null,ContentTypes.TEXT_HTML,guestbook.getName(),null,null,null,null,0,0,service.getAssetPriority());
+			
 			assetLinkLocalService.updateLinks(service.getUserId(), assetEntry.getEntryId(), service.getAssetLinkEntryIds(), AssetLinkConstants.TYPE_RELATED);
+			
 			WorkflowHandlerRegistryUtil.startWorkflowInstance(guestbook.getCompanyId(), guestbook.getGroupId(), guestbook.getUserId(), Guestbook.class.getName(), guestbook.getPrimaryKey(), guestbook,service);
 			
 			return guestbook;
@@ -95,10 +104,14 @@ public class GuestbookLocalServiceImpl extends GuestbookLocalServiceBaseImpl {
 	}
 	@Indexable(type=IndexableType.REINDEX)
 	public Guestbook updateGuestbook(long userId,long guestbookId,String name,ServiceContext service)throws PortalException,SystemException{
+		
 		Date now =new Date();
+		
 		validate(name);
+		
 		Guestbook guestbook=getGuestbook(guestbookId);
 		User user=userLocalService.getUser(userId);
+		
 		guestbook.setUserId(userId);
 		guestbook.setName(name);
 		guestbook.setUserName(user.getFullName());

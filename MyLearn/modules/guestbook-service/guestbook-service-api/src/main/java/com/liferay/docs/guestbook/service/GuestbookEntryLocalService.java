@@ -245,6 +245,9 @@ public interface GuestbookEntryLocalService
 			long groupId, long guestbookId, int status, int start, int end)
 		throws SystemException;
 
+	
+	
+	
 	/**
 	 * Returns all the guestbook entries matching the UUID and company.
 	 *
@@ -349,5 +352,6 @@ public interface GuestbookEntryLocalService
 			long userId, long guestbookId, long entryId, int status,
 			ServiceContext service)
 		throws PortalException, SystemException;
+
 
 }
